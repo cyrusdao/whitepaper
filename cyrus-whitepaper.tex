@@ -63,7 +63,7 @@
 
     {\LARGE\bfseries Whitepaper\par}
     \vspace{0.5cm}
-    {\large Version 1.3.0\par}
+    {\large Version 1.4.0\par}
     \vspace{1cm}
 
     {\large\itshape ``I am Cyrus, king of the world, great king, mighty king...\par
@@ -729,6 +729,416 @@ The CYRUS DAO will establish formal grant programs for:
     \item Treasury proposals (>1\% of treasury): 10\% of circulating supply
     \item Constitutional changes: 20\% of circulating supply
 \end{itemize}
+
+\section{Governance Framework: Building a Respectable Institution}
+
+\begin{center}
+\textit{``The lion and the lizard keep the courts\\
+Where Jamshyd gloried and drank deep.''}\\
+\vspace{0.2cm}
+--- Omar Khayyam
+\end{center}
+
+\vspace{0.5cm}
+
+Empires fall when governance fails. The CYRUS DAO is designed to endure---not through force, but through legitimacy, transparency, and institutional excellence. This section details the governance framework that will make CYRUS a respected institution worthy of the Persian legacy.
+
+\subsection{The CYRUS Constitution}
+
+The DAO operates under a written constitution that establishes fundamental principles, rights, and constraints. The constitution is stored on-chain and can only be amended through supermajority governance.
+
+\subsubsection{Constitutional Principles}
+
+\begin{tcolorbox}[colback=persianblue!10!white,colframe=persianblue,width=\textwidth,arc=3mm,boxrule=2pt]
+\textbf{\Large The CYRUS Constitution --- Core Principles}
+
+\vspace{0.3cm}
+
+\textbf{Article I: Mission}\\
+The CYRUS DAO exists to unite the Persian diaspora, preserve Persian culture and heritage, support humanitarian causes, and advance the cause of freedom for Iran and all peoples.
+
+\vspace{0.2cm}
+
+\textbf{Article II: Rights of Members}
+\begin{enumerate}[leftmargin=*]
+    \item Every token holder has the right to vote on proposals proportional to their holdings
+    \item Every token holder has the right to submit proposals (subject to threshold)
+    \item Every token holder has the right to access all treasury records and governance data
+    \item No member may be excluded based on ethnicity, religion, gender, or political belief
+\end{enumerate}
+
+\vspace{0.2cm}
+
+\textbf{Article III: Constraints on Power}
+\begin{enumerate}[leftmargin=*]
+    \item No single entity may control more than 10\% of voting power (excess votes do not count)
+    \item No treasury disbursement may exceed 5\% of total treasury without supermajority approval
+    \item No constitutional amendment may take effect in less than 30 days
+    \item The multi-sig may not act without on-chain governance approval except in emergencies
+\end{enumerate}
+
+\vspace{0.2cm}
+
+\textbf{Article IV: Prohibited Actions}
+\begin{enumerate}[leftmargin=*]
+    \item The DAO may not fund violence or terrorism
+    \item The DAO may not discriminate in grant-making based on protected characteristics
+    \item The DAO may not engage in securities offerings or financial fraud
+    \item The DAO may not knowingly violate applicable laws in member jurisdictions
+\end{enumerate}
+\end{tcolorbox}
+
+\subsubsection{Amendment Process}
+
+Constitutional amendments require:
+\begin{enumerate}[leftmargin=*]
+    \item Proposal by holder(s) with $\geq$ 1\% of circulating supply
+    \item 14-day discussion period
+    \item 67\% supermajority approval
+    \item 20\% quorum of circulating supply
+    \item 30-day timelock before implementation
+    \item Ratification by multi-sig (ministerial, not discretionary)
+\end{enumerate}
+
+\subsection{Proposal Types and Thresholds}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lllll@{}}
+\toprule
+\textbf{Type} & \textbf{Threshold} & \textbf{Quorum} & \textbf{Approval} & \textbf{Timelock} \\ \midrule
+Standard & 100K CYRUS & 5\% & 50\%+1 & 48 hours \\
+Treasury (<1\%) & 100K CYRUS & 5\% & 50\%+1 & 48 hours \\
+Treasury (1-5\%) & 500K CYRUS & 10\% & 60\% & 72 hours \\
+Treasury (>5\%) & 1M CYRUS & 15\% & 67\% & 7 days \\
+Constitutional & 10M CYRUS & 20\% & 67\% & 30 days \\
+Emergency & Multi-sig only & N/A & 4-of-7 & None \\
+\bottomrule
+\end{tabular}
+\caption{Proposal Types and Requirements}
+\end{table}
+
+\subsection{Multi-Signature Council}
+
+The DAO's treasury and execution functions are controlled by a 7-member multi-signature council requiring 4-of-7 signatures for transactions.
+
+\subsubsection{Council Composition}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{3 Community-Elected Members}: Elected annually by token vote
+    \item \textbf{2 Technical Members}: Security and smart contract experts
+    \item \textbf{1 Legal/Compliance Member}: Legal expertise in relevant jurisdictions
+    \item \textbf{1 Cultural/Academic Member}: Persian studies or cultural expertise
+\end{itemize}
+
+\subsubsection{Council Requirements}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Geographic Diversity}: No more than 3 members from same country
+    \item \textbf{Term Limits}: Maximum 2 consecutive one-year terms
+    \item \textbf{Conflict Disclosure}: Must disclose all material conflicts of interest
+    \item \textbf{KYC/Background}: Identity verified (kept confidential except to auditors)
+    \item \textbf{Compensation}: Modest stipend approved by governance (transparent)
+    \item \textbf{Removal}: Can be removed by 67\% vote for cause
+\end{itemize}
+
+\subsubsection{Council Duties}
+
+\begin{enumerate}[leftmargin=*]
+    \item Execute approved governance proposals (ministerial function)
+    \item Respond to emergencies per Emergency Procedures
+    \item Verify grant recipient eligibility and KYC
+    \item Publish monthly treasury reports
+    \item Coordinate annual audits
+    \item Represent DAO in legal matters (via designated counsel)
+\end{enumerate}
+
+\subsection{Treasury Management}
+
+\subsubsection{Treasury Structure}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Allocation} & \textbf{Purpose} & \textbf{Access} & \textbf{Target \%} \\ \midrule
+Operating & Day-to-day expenses & Multi-sig & 5\% \\
+Grants & Approved grant disbursements & Multi-sig + Gov & 40\% \\
+Strategic & Long-term investments & Governance only & 30\% \\
+Emergency & Crisis response & Multi-sig (emergency) & 10\% \\
+Locked & Cannot be spent & Time-locked & 15\% \\
+\bottomrule
+\end{tabular}
+\caption{Treasury Allocation Structure}
+\end{table}
+
+\subsubsection{Financial Controls}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Segregation of Duties}: Proposal creators cannot be sole approvers
+    \item \textbf{Spending Limits}: Daily limits on multi-sig without governance
+    \item \textbf{Dual Authorization}: Large transactions require 2 separate approval sessions
+    \item \textbf{Cooling-Off Period}: 24-hour delay between approval and execution for transactions >1\% treasury
+    \item \textbf{Automated Alerts}: Community notified of all transactions >0.1\% treasury
+\end{itemize}
+
+\subsubsection{Investment Policy}
+
+Treasury funds not immediately needed for operations shall be:
+\begin{itemize}[leftmargin=*]
+    \item Held in stablecoins (USDC, USDT) for stability
+    \item Diversified across multiple custody solutions
+    \item Never staked in high-risk DeFi protocols without governance approval
+    \item Never used for speculative trading
+    \item Subject to annual investment policy review
+\end{itemize}
+
+\subsection{Transparency and Reporting}
+
+\subsubsection{Public Dashboards}
+
+The following information shall be publicly available in real-time:
+\begin{itemize}[leftmargin=*]
+    \item Treasury balances across all wallets
+    \item All transactions with descriptions
+    \item Voting records for all proposals
+    \item Multi-sig member identities (or verified pseudonyms)
+    \item Grant recipient list (with privacy protections where needed)
+\end{itemize}
+
+\subsubsection{Regular Reports}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Report} & \textbf{Frequency} & \textbf{Contents} \\ \midrule
+Treasury Report & Monthly & Balances, inflows, outflows, allocations \\
+Grant Report & Quarterly & Recipients, amounts, outcomes, impact \\
+Governance Report & Quarterly & Proposals, votes, participation rates \\
+Annual Report & Yearly & Comprehensive review, audited financials \\
+\bottomrule
+\end{tabular}
+\caption{Reporting Schedule}
+\end{table}
+
+\subsubsection{Independent Audits}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Smart Contract Audits}: Before deployment and after major upgrades
+    \item \textbf{Financial Audits}: Annual audit by reputable crypto-native firm
+    \item \textbf{Security Audits}: Annual penetration testing and security review
+    \item \textbf{Governance Audits}: Periodic review of governance health metrics
+\end{itemize}
+
+\subsection{Code of Conduct and Ethics}
+
+\subsubsection{Member Conduct}
+
+All CYRUS community members agree to:
+\begin{itemize}[leftmargin=*]
+    \item Treat fellow members with respect and dignity
+    \item Engage in good-faith discussion and debate
+    \item Disclose conflicts of interest when voting
+    \item Refrain from market manipulation or insider trading
+    \item Protect the privacy and safety of vulnerable members
+    \item Report suspected fraud, abuse, or security issues
+\end{itemize}
+
+\subsubsection{Council Member Ethics}
+
+Multi-sig council members must:
+\begin{itemize}[leftmargin=*]
+    \item Act solely in the interest of the DAO and its mission
+    \item Disclose all material conflicts before any vote
+    \item Recuse from decisions where they have personal interest
+    \item Maintain confidentiality of sensitive information
+    \item Never use DAO resources for personal benefit
+    \item Cooperate with audits and investigations
+\end{itemize}
+
+\subsubsection{Conflict of Interest Policy}
+
+\begin{tcolorbox}[colback=persiangold!10!white,colframe=cyruscolor,width=\textwidth,arc=2mm,boxrule=1pt]
+\textbf{Conflict of Interest Disclosure Requirements:}
+\begin{enumerate}[leftmargin=*]
+    \item Any proposal where the submitter or their affiliates would receive >1\% of the disbursement
+    \item Any vote where the voter has material interest in the outcome
+    \item Any council decision involving entities the council member is affiliated with
+    \item Ongoing relationships with grant recipients, vendors, or partners
+\end{enumerate}
+Undisclosed conflicts discovered after the fact may result in proposal reversal, removal from council, or community sanction.
+\end{tcolorbox}
+
+\subsubsection{Whistleblower Protection}
+
+The DAO commits to:
+\begin{itemize}[leftmargin=*]
+    \item Anonymous reporting channels for fraud, abuse, or misconduct
+    \item Non-retaliation against good-faith whistleblowers
+    \item Investigation of all credible reports
+    \item Public disclosure of investigation outcomes (protecting privacy)
+    \item Rewards for whistleblowers who expose significant fraud (up to 10\% of recovered funds)
+\end{itemize}
+
+\subsection{Emergency Procedures}
+
+\subsubsection{Emergency Types}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Level} & \textbf{Trigger} & \textbf{Response} \\ \midrule
+Level 1 & Smart contract vulnerability & Pause contracts, assess \\
+Level 2 & Active exploit in progress & Emergency withdrawal, patch \\
+Level 3 & Existential threat & Full shutdown, legal response \\
+\bottomrule
+\end{tabular}
+\caption{Emergency Response Levels}
+\end{table}
+
+\subsubsection{Emergency Powers}
+
+The multi-sig council may act without governance approval \textbf{only} to:
+\begin{enumerate}[leftmargin=*]
+    \item Pause smart contracts to prevent loss of funds
+    \item Blacklist addresses involved in active exploits
+    \item Move funds to secure backup wallets
+    \item Engage emergency legal counsel
+\end{enumerate}
+
+All emergency actions must be:
+\begin{itemize}[leftmargin=*]
+    \item Reported to community within 24 hours
+    \item Ratified by governance within 7 days (or reversed)
+    \item Documented in post-mortem report within 30 days
+\end{itemize}
+
+\subsubsection{Disaster Recovery}
+
+\begin{itemize}[leftmargin=*]
+    \item Multi-sig keys stored in geographically distributed secure locations
+    \item Dead-man switch: If 4+ signers unreachable for 90 days, recovery process activates
+    \item Backup governance: If primary contracts fail, backup on alternative chain
+    \item Legal continuity: Foundation documents filed in stable jurisdiction
+\end{itemize}
+
+\subsection{Legal and Compliance Structure}
+
+\subsubsection{Legal Wrapper}
+
+The CYRUS DAO operates through a legal entity structure:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{CYRUS Foundation}: Non-profit foundation (jurisdiction TBD---likely Switzerland, Cayman, or Marshall Islands)
+    \item \textbf{Purpose}: Hold IP, enter contracts, employ staff, interface with traditional institutions
+    \item \textbf{Governance}: Foundation board elected by DAO governance
+    \item \textbf{Limitations}: Foundation cannot act contrary to DAO governance
+\end{itemize}
+
+\subsubsection{Regulatory Compliance}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Securities Law}: CYRUS is a governance token, not a security; no promise of profits
+    \item \textbf{AML/KYC}: Grant recipients and large holders subject to verification
+    \item \textbf{Sanctions}: No transactions with OFAC-sanctioned entities (exception: humanitarian aid to Iranian civilians per OFAC exemptions)
+    \item \textbf{Tax}: Foundation files appropriate tax returns; members responsible for own taxes
+    \item \textbf{Legal Counsel}: Retained counsel in US, EU, and relevant jurisdictions
+\end{itemize}
+
+\subsubsection{Jurisdictional Considerations}
+
+\begin{tcolorbox}[colback=persianred!10!white,colframe=persianred,width=\textwidth,arc=2mm,boxrule=1pt]
+\textbf{Important Notice on Iran Sanctions:}
+
+US and EU sanctions on Iran create legal complexity for Iranian diaspora projects. CYRUS takes the following position:
+\begin{itemize}[leftmargin=*]
+    \item We comply with all applicable sanctions laws
+    \item We utilize humanitarian exemptions where available
+    \item We do not transact with sanctioned individuals or entities
+    \item We support humanitarian aid to Iranian civilians, which is generally permitted
+    \item We advocate for smart sanctions that target the regime, not the people
+    \item Members are responsible for their own jurisdictional compliance
+\end{itemize}
+\textbf{Consult legal counsel before participating if you have concerns about sanctions compliance.}
+\end{tcolorbox}
+
+\subsection{Dispute Resolution}
+
+\subsubsection{Internal Disputes}
+
+Disputes between members or regarding governance shall be resolved through:
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Discussion}: Good-faith dialogue in community forums
+    \item \textbf{Mediation}: Volunteer mediators from community
+    \item \textbf{Arbitration Panel}: 3-member panel elected by governance
+    \item \textbf{Governance Vote}: Final resolution by token vote if needed
+\end{enumerate}
+
+\subsubsection{External Disputes}
+
+Disputes with external parties shall be resolved through:
+
+\begin{itemize}[leftmargin=*]
+    \item Foundation legal counsel negotiation
+    \item Mediation through agreed neutral party
+    \item Binding arbitration (ICC or similar)
+    \item Litigation only as last resort
+\end{itemize}
+
+\subsection{Governance Health Metrics}
+
+The DAO shall track and publish metrics indicating governance health:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Metric} & \textbf{Target} & \textbf{Concern Level} \\ \midrule
+Voter Participation & >30\% & <10\% \\
+Proposal Success Rate & 40-70\% & <20\% or >90\% \\
+Council Diversity (geo) & 5+ countries & <3 countries \\
+Token Concentration (top 10) & <40\% & >60\% \\
+Time to Execution & <14 days & >30 days \\
+Whistleblower Reports & Any & Unresolved >30 days \\
+Audit Findings & 0 critical & Any unresolved \\
+\bottomrule
+\end{tabular}
+\caption{Governance Health Dashboard Metrics}
+\end{table}
+
+\subsection{Continuous Improvement}
+
+The governance framework itself is subject to continuous improvement:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Annual Review}: Comprehensive governance review each Nowruz
+    \item \textbf{Community Feedback}: Standing proposal category for governance improvements
+    \item \textbf{Benchmarking}: Compare to best practices in other DAOs
+    \item \textbf{Academic Input}: Engage governance researchers for periodic review
+    \item \textbf{Failure Analysis}: Post-mortem on any governance failures
+\end{itemize}
+
+\begin{tcolorbox}[colback=persiangold!10!white,colframe=persianblue,width=\textwidth,arc=3mm,boxrule=2pt]
+\centering
+\textbf{\Large Governance is Not Bureaucracy}
+
+\vspace{0.3cm}
+
+These structures exist not to slow us down, but to make us \textit{trustworthy}.
+
+\vspace{0.2cm}
+
+A liberation movement that cannot govern itself honestly\\
+has no business offering governance to a nation.
+
+\vspace{0.2cm}
+
+\textbf{We will be the institution we wish Iran to become:\\
+transparent, accountable, just, and free.}
+\end{tcolorbox}
 
 \section{Roadmap: Three Nowruz}
 
@@ -1900,7 +2310,7 @@ This whitepaper is versioned and will be updated as the project evolves. Signifi
 \url{https://github.com/cyrusdao/whitepaper}
 \end{center}
 
-\textbf{Current Version}: 1.3.0\\
+\textbf{Current Version}: 1.4.0\\
 \textbf{Last Updated}: \today
 
 \newpage
