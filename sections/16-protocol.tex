@@ -1,0 +1,191 @@
+\section{CYRUS Protocol: Post-Quantum Secure Communications}
+
+\begin{center}
+\textit{``Raise your words, not your voice.\\
+It is rain that grows flowers, not thunder.''}\\
+\vspace{0.2cm}
+--- Rumi
+\end{center}
+
+\vspace{0.5cm}
+
+Liberation requires coordination. Coordination requires communication. And communication under surveillance is not communication---it is entrapment.
+
+The CYRUS community recommends and supports the development of post-quantum secure messaging protocols that protect activists, journalists, and citizens from both current surveillance and future quantum attacks. This section specifies the technical requirements and architecture.
+
+\subsection{Threat Model}
+
+We assume adversaries with:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Mass surveillance capability}: Ability to intercept and store all network traffic
+    \item \textbf{State-level resources}: Access to nation-state cryptanalytic capabilities
+    \item \textbf{Future quantum computers}: Ability to break classical asymmetric cryptography (RSA, ECDH) within 10--20 years
+    \item \textbf{Endpoint compromise attempts}: Malware, physical seizure, coercion
+    \item \textbf{Network-level attacks}: Traffic analysis, timing attacks, node compromise
+\end{itemize}
+
+\subsection{Security Goals}
+
+The protocol must achieve:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Property} & \textbf{Description} \\ \midrule
+Confidentiality & Only intended recipients can read messages \\
+Authenticity & Recipients can verify sender identity \\
+Forward Secrecy & Past messages safe even if keys later compromised \\
+Post-Compromise Security & Recovery after temporary key compromise \\
+Metadata Protection & Sender/recipient relationship hidden from observers \\
+Post-Quantum Resistance & Secure against quantum cryptanalysis \\
+Offline Capability & Messages deliverable when recipient offline \\
+Multi-Device Support & Seamless use across multiple devices \\
+Decentralization & No single point of failure or control \\
+\bottomrule
+\end{tabular}
+\caption{CYRUS Protocol Security Requirements}
+\end{table}
+
+\subsection{Cryptographic Primitives}
+
+\subsubsection{Hybrid Post-Quantum Key Exchange}
+
+Classical elliptic curve cryptography (X25519) is efficient but vulnerable to Shor's algorithm on quantum computers. Post-quantum lattice-based schemes (ML-KEM/CRYSTALS-Kyber) resist quantum attacks but are newer and less battle-tested.
+
+\textbf{Solution}: Hybrid key exchange combining both:
+
+\begin{equation}
+K_{\text{shared}} = \text{KDF}(K_{\text{X25519}} \| K_{\text{ML-KEM}})
+\end{equation}
+
+Security holds unless \textit{both} schemes are broken---classical cryptanalysis defeats ML-KEM \textit{and} quantum computers defeat X25519 simultaneously.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Primitive} & \textbf{Algorithm} & \textbf{Purpose} \\ \midrule
+Classical KEM & X25519 & ECDH key agreement \\
+Post-Quantum KEM & ML-KEM-768 (Kyber) & Quantum-resistant key encapsulation \\
+Symmetric Encryption & ChaCha20-Poly1305 & AEAD for message encryption \\
+Key Derivation & HKDF-SHA256 & Derive session keys from shared secrets \\
+Signatures & Ed25519 + Dilithium & Authentication (hybrid PQ) \\
+Hash Function & SHA-256/SHA-3 & Integrity, ratchet advancement \\
+\bottomrule
+\end{tabular}
+\caption{Cryptographic Primitives}
+\end{table}
+
+\subsubsection{Double Ratchet with PQ Enhancement}
+
+The Double Ratchet algorithm (Signal Protocol) provides forward secrecy and post-compromise security. We enhance it with post-quantum key encapsulation:
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Root Key Ratchet}: Updated with each new DH/KEM exchange
+    \item \textbf{Sending/Receiving Chains}: Derived from root key, advanced per-message
+    \item \textbf{Message Keys}: Ephemeral, deleted immediately after use
+    \item \textbf{PQ Ratchet}: Periodic ML-KEM re-keying for quantum resistance
+\end{enumerate}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[scale=0.9]
+    % Root chain
+    \node[draw, rounded corners, fill=persianblue!20, minimum width=2cm, minimum height=0.8cm] (rk1) at (0,3) {$RK_0$};
+    \node[draw, rounded corners, fill=persianblue!20, minimum width=2cm, minimum height=0.8cm] (rk2) at (3,3) {$RK_1$};
+    \node[draw, rounded corners, fill=persianblue!20, minimum width=2cm, minimum height=0.8cm] (rk3) at (6,3) {$RK_2$};
+
+    \draw[->, thick] (rk1) -- (rk2) node[midway, above] {\small DH+KEM};
+    \draw[->, thick] (rk2) -- (rk3) node[midway, above] {\small DH+KEM};
+
+    % Sending chains
+    \node[draw, rounded corners, fill=persiangold!30, minimum width=1.5cm, minimum height=0.6cm] (ck1) at (0,1.5) {$CK_0$};
+    \node[draw, rounded corners, fill=persiangold!30, minimum width=1.5cm, minimum height=0.6cm] (ck2) at (1.5,1.5) {$CK_1$};
+    \node[draw, rounded corners, fill=persiangold!30, minimum width=1.5cm, minimum height=0.6cm] (ck3) at (3,1.5) {$CK_2$};
+
+    \draw[->, thick] (rk1) -- (ck1);
+    \draw[->, thick] (ck1) -- (ck2);
+    \draw[->, thick] (ck2) -- (ck3);
+
+    % Message keys
+    \node[draw, rounded corners, fill=persianred!20, minimum width=1cm, minimum height=0.5cm] (mk1) at (0,0) {$MK$};
+    \node[draw, rounded corners, fill=persianred!20, minimum width=1cm, minimum height=0.5cm] (mk2) at (1.5,0) {$MK$};
+    \node[draw, rounded corners, fill=persianred!20, minimum width=1cm, minimum height=0.5cm] (mk3) at (3,0) {$MK$};
+
+    \draw[->, thick] (ck1) -- (mk1);
+    \draw[->, thick] (ck2) -- (mk2);
+    \draw[->, thick] (ck3) -- (mk3);
+
+    % Labels
+    \node at (-2,3) {\small Root Chain};
+    \node at (-2,1.5) {\small Chain Keys};
+    \node at (-2,0) {\small Message Keys};
+\end{tikzpicture}
+\caption{Post-Quantum Enhanced Double Ratchet}
+\end{figure}
+
+\subsection{Anonymous Transport: Onion Routing}
+
+Messages are wrapped in multiple encryption layers and routed through a network of nodes, so no single node knows both sender and recipient.
+
+\subsubsection{Three-Hop Onion Requests}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Entry Node}: Knows sender IP, but not destination or content
+    \item \textbf{Middle Node}: Knows only previous and next hop
+    \item \textbf{Exit Node}: Knows destination swarm, but not sender
+\end{enumerate}
+
+Each hop strips one encryption layer:
+\begin{equation}
+\text{Onion} = E_{K_1}(\text{addr}_2 \| E_{K_2}(\text{addr}_3 \| E_{K_3}(\text{swarm} \| E_{\text{recipient}}(\text{message}))))
+\end{equation}
+
+\subsubsection{Decentralized Message Storage (Swarm)}
+
+Messages are stored in recipient's ``swarm''---a set of nodes determined by a DHT (Distributed Hash Table) based on recipient's public key. This enables:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Offline delivery}: Messages persist until recipient retrieves them
+    \item \textbf{Redundancy}: Multiple nodes store each message
+    \item \textbf{Censorship resistance}: No single node can block delivery
+    \item \textbf{Expiration}: Messages auto-delete after configurable period
+\end{itemize}
+
+\subsection{Multi-Device Architecture}
+
+Users need messaging across phone, laptop, tablet. The protocol supports this via:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Per-Account Keys}: Master identity key pair (long-term)
+    \item \textbf{Per-Device Keys}: Each device has unique keys linked to account
+    \item \textbf{Config Messages}: Encrypted sync of device list, settings, contacts
+    \item \textbf{Explicit Device Management}: Users can add/remove devices, revoke compromised ones
+\end{itemize}
+
+\subsection{Implementation Recommendations}
+
+The CYRUS community endorses and recommends:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Session Messenger}: Open-source, implements this architecture, actively developing Protocol V2 with PQ support
+    \item \textbf{Signal Protocol}: Excellent ratchet design, adding PQ (PQXDH)
+    \item \textbf{Matrix/Element}: Decentralized, end-to-end encrypted, federation model
+\end{itemize}
+
+\textbf{For activists inside Iran}: Use Session or Signal over Tor/VPN. Assume all unencrypted communications are monitored. Delete messages after reading. Use disappearing messages. Never discuss operational details over any electronic medium unless absolutely necessary.
+
+\subsection{The Mathematics of Freedom}
+
+Cryptography is mathematics in service of liberty. The security of these protocols rests on problems believed to be computationally hard:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Discrete Logarithm Problem}: Given $g^x \mod p$, find $x$ (classical security)
+    \item \textbf{Elliptic Curve DLP}: Given $[k]P$ on curve $E$, find $k$ (compact classical security)
+    \item \textbf{Learning With Errors (LWE)}: Given $(\mathbf{A}, \mathbf{As} + \mathbf{e})$, find $\mathbf{s}$ (post-quantum security)
+    \item \textbf{Module-LWE}: Structured variant enabling efficient ML-KEM
+\end{itemize}
+
+These mathematical structures---groups, rings, lattices---are the foundation of secure communication. Every time an activist sends an encrypted message, they are protected by millennia of mathematical discovery, from Euclid to Diffie-Hellman to the lattice cryptographers of today.
+
+\textbf{This is why we call on mathematicians to join our cause.} Your work is not abstract---it is the armor of the oppressed.

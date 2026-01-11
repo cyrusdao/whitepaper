@@ -1,0 +1,174 @@
+\section{Technical Appendix}
+
+\subsection{Smart Contract Specifications}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\ \midrule
+Token Name & Cyrus \\
+Token Symbol & CYRUS \\
+Token Standard & ERC-20 \\
+Decimals & 18 \\
+Total Supply & 1,000,000,000 (1 Billion) \\
+Blockchain & Base (Coinbase L2) \\
+Chain ID & 8453 \\
+Payment Token & USDbC (USDT equivalent on Base) \\
+USDbC Address & \texttt{0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA} \\
+\bottomrule
+\end{tabular}
+\caption{Smart Contract Technical Details}
+\end{table}
+
+\subsection{Contract Features}
+
+The CYRUS smart contract implements the following security and functionality features:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{ERC-20 Standard}: Full compatibility with all ERC-20 wallets and exchanges
+    \item \textbf{ERC-20 Permit}: Gasless approvals via EIP-2612 signatures
+    \item \textbf{ERC-20 Burnable}: Tokens can be burned to reduce supply
+    \item \textbf{ERC-20 Pausable}: Emergency pause capability for security
+    \item \textbf{Ownable}: Administrative functions protected by ownership
+    \item \textbf{ReentrancyGuard}: Protection against reentrancy attacks
+    \item \textbf{SafeERC20}: Safe token transfer handling
+    \item \textbf{Superchain Bridge}: Compatible with Base/Optimism Superchain bridge
+\end{itemize}
+
+\subsection{Transfer Lock Mechanism}
+
+To prevent speculation during the Genesis phase, transfers are locked until Nowruz 2026:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\ \midrule
+Unlock Event & Nowruz 2026 (Spring Equinox) \\
+Unlock Date & March 21, 2026 12:00:00 UTC \\
+Unix Timestamp & 1742558400 \\
+\bottomrule
+\end{tabular}
+\caption{Transfer Lock Parameters}
+\end{table}
+
+\textbf{During Genesis Phase (Before Nowruz 2026):}
+\begin{itemize}[leftmargin=*]
+    \item Minting (buying from bonding curve) --- \textcolor{green!60!black}{\textbf{Allowed}}
+    \item Burning --- \textcolor{green!60!black}{\textbf{Allowed}}
+    \item LP wallet transfers (for DEX setup) --- \textcolor{green!60!black}{\textbf{Allowed}}
+    \item All other transfers --- \textcolor{red}{\textbf{Blocked}}
+\end{itemize}
+
+\textbf{After Nowruz 2026:}
+\begin{itemize}[leftmargin=*]
+    \item All transfers --- \textcolor{green!60!black}{\textbf{Allowed}}
+\end{itemize}
+
+\subsection{Bonding Curve Mathematics}
+
+The quadratic bonding curve is implemented with the following formula:
+
+\begin{equation}
+P(s) = P_{start} + (P_{end} - P_{start}) \times \left(\frac{s}{S_{total}}\right)^2
+\end{equation}
+
+Where:
+\begin{itemize}[leftmargin=*]
+    \item $P(s)$ = Price when $s$ tokens have been sold
+    \item $P_{start}$ = \$0.01 (10,000 in USDT 6-decimal format)
+    \item $P_{end}$ = \$1.00 (1,000,000 in USDT 6-decimal format)
+    \item $s$ = Tokens sold so far
+    \item $S_{total}$ = 900,000,000 tokens (SALE\_SUPPLY)
+\end{itemize}
+
+\textbf{Contract Constants:}
+\begin{verbatim}
+START_PRICE  = 10000      // $0.01 in USDT (6 decimals)
+END_PRICE    = 1000000    // $1.00 in USDT (6 decimals)
+SALE_SUPPLY  = 900,000,000 * 10^18  // 900M tokens
+LP_RESERVE   = 100,000,000 * 10^18  // 100M tokens
+MAX_SUPPLY   = 1,000,000,000 * 10^18 // 1B tokens
+\end{verbatim}
+
+\subsection{Security Considerations}
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Checks-Effects-Interactions}: State updates occur before external calls
+    \item \textbf{Slippage Protection}: Optional \texttt{minTokensOut} parameter on buys
+    \item \textbf{No Sell Function}: Tokens can only be bought during bonding curve phase
+    \item \textbf{Immutable USDT Address}: Payment token address cannot be changed
+    \item \textbf{Multi-step Price Calculation}: Accurate integration over quadratic curve
+\end{itemize}
+
+\subsection{Contract Functions}
+
+\textbf{Public View Functions:}
+\begin{itemize}[leftmargin=*]
+    \item \texttt{getCurrentPrice()} --- Returns current price in USDT (6 decimals)
+    \item \texttt{calculateTokensForUsdt(amount)} --- Calculate tokens for USDT amount
+    \item \texttt{tokensSold()} --- Total tokens sold through bonding curve
+    \item \texttt{usdtRaised()} --- Total USDT raised
+    \item \texttt{saleActive()} --- Whether bonding curve sale is active
+    \item \texttt{transfersEnabled()} --- Whether transfers are unlocked
+    \item \texttt{NOWRUZ\_2026()} --- Transfer unlock timestamp
+\end{itemize}
+
+\textbf{Public Write Functions:}
+\begin{itemize}[leftmargin=*]
+    \item \texttt{buy(usdtAmount)} --- Buy tokens with USDT
+    \item \texttt{buy(usdtAmount, minTokensOut)} --- Buy with slippage protection
+\end{itemize}
+
+\textbf{Owner Functions:}
+\begin{itemize}[leftmargin=*]
+    \item \texttt{fundLP()} --- Transfer raised USDT to LP wallet
+    \item \texttt{setLPWallet(address)} --- Update LP wallet address
+    \item \texttt{endSale()} --- End bonding curve sale early
+    \item \texttt{resumeSale()} --- Resume paused sale
+    \item \texttt{pause()} / \texttt{unpause()} --- Emergency pause controls
+\end{itemize}
+
+\subsection{Verified Contract Addresses}
+
+\begin{tcolorbox}[colback=pasargadae!20!white,colframe=cyruscolor,width=\textwidth,arc=2mm,boxrule=1pt]
+\textbf{Base Mainnet (Chain ID: 8453)}
+
+\vspace{0.3cm}
+
+CYRUS Token: \texttt{[To be published upon deployment]}
+
+\vspace{0.1cm}
+
+USDbC (Payment): \texttt{0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA}
+
+\vspace{0.3cm}
+
+\textit{Contract source code will be verified on BaseScan upon deployment.}
+
+\vspace{0.1cm}
+
+\textit{Audit report will be published before launch.}
+\end{tcolorbox}
+
+\subsection{Links \& Resources}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Resource} & \textbf{URL} \\ \midrule
+Official Website & \url{https://cyrus.cash} \\
+Whitepaper & \url{https://cyrus.cash/whitepaper.pdf} \\
+Source Code & \url{https://github.com/luxdao/cyrus} \\
+Base Blockchain & \url{https://base.org} \\
+BaseScan (Contract) & \url{https://basescan.org/token/[TBD]} \\
+DexScreener & \url{https://dexscreener.com/base/[TBD]} \\
+Uniswap (Trading) & \url{https://app.uniswap.org} \\
+\bottomrule
+\end{tabular}
+\caption{Official Links (Trading links active after Nowruz 2026)}
+\end{table}
+
+\newpage

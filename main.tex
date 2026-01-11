@@ -1,0 +1,115 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\geometry{margin=1in}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=persianblue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={CYRUS Whitepaper - Token of the Persian Legacy},
+    pdfpagemode=FullScreen,
+}
+
+% Persian-inspired color palette
+\definecolor{persianblue}{RGB}{28, 57, 187}
+\definecolor{persiangold}{RGB}{212, 175, 55}
+\definecolor{persianred}{RGB}{204, 51, 51}
+\definecolor{cyruscolor}{RGB}{139, 69, 19}
+\definecolor{pasargadae}{RGB}{194, 178, 128}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{CYRUS Whitepaper}
+\lhead{PARS Community Token}
+\rfoot{\thepage}
+
+\titleformat{\section}
+  {\color{persianblue}\normalfont\Large\bfseries}
+  {\color{persianblue}\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\color{cyruscolor}\normalfont\large\bfseries}
+  {\color{cyruscolor}\thesubsection}{1em}{}
+
+\begin{document}
+
+% Title Page, Abstract, and Table of Contents
+\input{sections/00-titlepage}
+
+% To the Persian People Worldwide
+\input{sections/01-persian-people}
+
+% The Moment We Are In
+\input{sections/02-moment}
+
+% The Pahlavi Continuity
+\input{sections/03-pahlavi}
+
+% Why Blockchain?
+\input{sections/04-blockchain}
+
+% The Legacy of Cyrus the Great
+\input{sections/05-legacy}
+
+% The PARS Community & Diaspora
+\input{sections/06-community}
+
+% Tokenomics
+\input{sections/07-tokenomics}
+
+% DAO Governance
+\input{sections/08-dao-governance}
+
+% Governance Framework
+\input{sections/09-governance-framework}
+
+% Roadmap: Three Nowruz
+\input{sections/10-roadmap}
+
+% The Vision: A Free Iran
+\input{sections/11-vision}
+
+% Liberation Infrastructure
+\input{sections/12-liberation}
+
+% Join the Movement
+\input{sections/13-join}
+
+% Conclusion
+\input{sections/14-conclusion}
+
+% The Path to Universal Liberty
+\input{sections/15-liberty}
+
+% CYRUS Protocol: Post-Quantum
+\input{sections/16-protocol}
+
+% A Call to Artists, Mathematicians, and Cryptographers
+\input{sections/17-call}
+
+% News, Updates
+\input{sections/18-news}
+
+% Technical Appendix
+\input{sections/19-appendix}
+
+% Disclaimer
+\input{sections/20-disclaimer}
+
+\end{document}

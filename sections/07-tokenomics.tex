@@ -1,0 +1,121 @@
+\section{Tokenomics}
+
+\subsection{Token Overview}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Parameter} & \textbf{Value} \\ \midrule
+Token Name & Cyrus the Great \\
+Token Symbol & CYRUS \\
+Total Supply & 1,000,000,000 (1 Billion) \\
+Blockchain & Base (Ethereum L2) \\
+Token Standard & ERC-20 \\
+Denomination & USDT \\
+Initial Price & \$0.01 \\
+Target Price & \$1.00 (100X) \\ \bottomrule
+\end{tabular}
+\caption{CYRUS Token Specifications}
+\end{table}
+
+\subsection{Distribution Model}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Allocation} & \textbf{Percentage} & \textbf{Tokens} & \textbf{Purpose} \\ \midrule
+Bonding Curve Sale & 90\% & 900,000,000 & Public distribution \\
+LP Reserve & 10\% & 100,000,000 & Initial liquidity \\ \bottomrule
+\textbf{Total} & \textbf{100\%} & \textbf{1,000,000,000} & \\
+\end{tabular}
+\caption{Token Distribution}
+\end{table}
+
+\textbf{Key Principles:}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{No Team Allocation}: All tokens go to community
+    \item \textbf{No VC Rounds}: No insider advantages
+    \item \textbf{No Pre-sale}: Everyone starts equal
+    \item \textbf{Fair Launch}: Bonding curve ensures transparent pricing
+\end{itemize}
+
+\subsection{Bonding Curve Mechanism}
+
+CYRUS uses a \textbf{quadratic bonding curve} to create a fair, transparent price discovery mechanism that rewards early believers while remaining accessible to later participants.
+
+\textbf{How It Works:}
+
+\begin{enumerate}[leftmargin=*]
+    \item 90\% of tokens (900M) are sold through the bonding curve
+    \item Price starts at \$0.01 and increases along a quadratic curve
+    \item Final price reaches \$1.00 when the curve completes
+    \item All purchases are denominated in USDT for price stability
+\end{enumerate}
+
+\textbf{The Quadratic Formula:}
+
+\begin{equation}
+P(q) = P_0 + k \cdot q^2
+\end{equation}
+
+Where:
+\begin{itemize}[leftmargin=*]
+    \item $P(q)$ = Price at quantity $q$ sold
+    \item $P_0$ = Initial price (\$0.01)
+    \item $k$ = Curve constant calibrated for 100X growth
+    \item $q$ = Cumulative tokens sold (0 to 900M)
+\end{itemize}
+
+\textbf{Price Progression Example:}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Tokens Sold} & \textbf{Price (USDT)} & \textbf{Multiple from Start} \\ \midrule
+0 (Start) & \$0.01 & 1X \\
+90,000,000 (10\%) & \$0.02 & 2X \\
+270,000,000 (30\%) & \$0.10 & 10X \\
+450,000,000 (50\%) & \$0.26 & 26X \\
+630,000,000 (70\%) & \$0.50 & 50X \\
+810,000,000 (90\%) & \$0.82 & 82X \\
+900,000,000 (100\%) & \$1.00 & 100X \\ \bottomrule
+\end{tabular}
+\caption{Bonding Curve Price Progression}
+\end{table}
+
+\textbf{Why Quadratic?}
+
+A quadratic curve (rather than linear) creates a gentler price increase at the beginning, giving the community more time to accumulate at lower prices. The steeper curve at the end rewards early participants who took risk when the project was young.
+
+\subsection{LP Reserve Mechanism}
+
+The 10\% LP Reserve (100M tokens) serves critical functions:
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Initial Liquidity}: Seeded at \$0.01 with USDT pairing
+    \item \textbf{Price Floor}: Provides baseline liquidity for trading
+    \item \textbf{Market Making}: Ensures smooth trading experience
+    \item \textbf{Transition}: Supports migration from bonding curve to DEX
+\end{enumerate}
+
+\textbf{LP Launch Parameters:}
+\begin{itemize}[leftmargin=*]
+    \item 100,000,000 CYRUS tokens
+    \item \$1,000,000 USDT paired (at \$0.01/token)
+    \item Locked for 12 months minimum
+    \item Managed by DAO after lock period
+\end{itemize}
+
+\subsection{USDT Denomination}
+
+All CYRUS purchases through the bonding curve are denominated in USDT (Tether) rather than volatile cryptocurrencies. This provides:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Price Clarity}: Know exactly what you're paying
+    \item \textbf{Stability}: No slippage from underlying asset volatility
+    \item \textbf{Accessibility}: Familiar denomination for newcomers
+    \item \textbf{Treasury Stability}: DAO treasury maintains value
+\end{itemize}
